@@ -1,0 +1,87 @@
+<!doctype html>
+<html ng-app="NotaApp">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+  <script src="todo.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script><!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+
+  <div ng-controller="NotasController as vm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img ng-click="vm.trocaEstrutura(0)"  src="logo.png" alt="Smiley face" height="70" width="150" style="cursor:pointer">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a ng-click="vm.trocaEstrutura(1)" class="nav-link" href="#">Fila </a>
+          </li>
+          <li class="nav-item ">
+            <a ng-click="vm.trocaEstrutura(2)" class="nav-link" href="#">Pilha</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="col-md-6">
+      <h2>Trabalho de Programação e Estrutura de Dados <a ng-hide="vm.estruturaAtual !== vm.Pilha.estrutura">- Pilha</a> <a ng-hide="vm.estruturaAtual !== vm.Fila.estrutura">- Fila</a></h2>
+      <h5>Equipe: Vinícius de Souza Margotti, Vitor Demboski, Carlinhos</h5>
+      <br>
+      <div style="width: 500px;" class="input-group">
+        <input required type="number" class="form-control" ng-model="nota" placeholder="Inserir uma nota">
+        <span class="input-group-btn">
+          <button class="btn btn-success" ng-click="vm.inserir(nota)" type="button">Adicionar</button>
+        </span>
+        
+      </div><!-- /input-group -->
+      <br>
+      <div style="width: 500px;" class="input-group">
+        <input required type="number" class="form-control" ng-model="filtro" placeholder="Buscar elemento">
+        <span class="input-group-btn">
+          <button class="btn btn-success" ng-click="vm.buscarElemento(filtro)" type="button">Buscar elemento</button>
+        </span>
+      </div><!-- /input-group -->
+
+      <table class="table">
+        <thead>
+          <th>Nota</th>
+          <th>Posição</th>
+          <th>Remover</th>
+        </thead>
+        <tbody style="max-height: 300px;overflow: auto;">
+          <tr ng-repeat="nota in vm.notas track by $index">
+            <td>{{nota}}</td>
+            <td>{{$index}}</td>
+            <td> 
+              <button ng-disabled="(vm.Pilha.topo !== $index && vm.estruturaAtual === vm.Pilha.estrutura) || (0 !== $index && vm.estruturaAtual === vm.Fila.estrutura)" class="btn btn-danger" ng-click="vm.remover(nota)" type="button">Remover</button>
+            </td>
+          </tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+
+</html>
